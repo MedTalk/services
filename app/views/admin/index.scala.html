@@ -1,0 +1,8 @@
+@()
+
+@main("MedTalk Admin") {
+    <h1>This is the Admin interface for MedTalk</h1>
+    @helper.form(action = controllers.admin.routes.AdminAuthController.logout) {
+        <input type="submit" value="Logout">
+    }
+}

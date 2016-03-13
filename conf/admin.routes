@@ -1,0 +1,4 @@
+GET     /           controllers.admin.AdminController.index
+GET     /login      controllers.admin.AdminAuthController.loginView
+POST    /login      controllers.admin.AdminAuthController.login
+POST    /logout     controllers.admin.AdminAuthController.logout

@@ -1,0 +1,9 @@
+@(form: Form[security.admin.AdminCredential])(implicit messages: Messages)
+
+@main("MedTalk Login") {
+    @helper.form(action = controllers.admin.routes.AdminAuthController.login()) {
+        @helper.inputText(form("email"))
+        @helper.inputPassword(form("password"))
+        <input type="submit" value="Login">
+    }
+}
