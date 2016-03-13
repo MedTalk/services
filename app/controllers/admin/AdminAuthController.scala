@@ -2,14 +2,21 @@ package controllers.admin
 
 import javax.inject.Inject
 
+import dao.AdminDAO
 import play.api.i18n.{MessagesApi, I18nSupport}
 import play.api.mvc.{Action, Controller}
 import security.admin.{AdminSecurity, AdminCredential}
 
+import scala.concurrent.{Future, ExecutionContext}
+
 /**
   * Created by khanguyen on 3/13/16.
   */
-class AdminAuthController @Inject()(val messagesApi: MessagesApi) extends Controller with AdminSecurity with I18nSupport {
+class AdminAuthController @Inject()(val messagesApi: MessagesApi,
+                                    adminDAO: AdminDAO)(implicit ec: ExecutionContext)
+  extends Controller
+    with AdminSecurity
+    with I18nSupport {
 
   val loginForm = AdminCredential.loginForm
 
@@ -20,14 +27,23 @@ class AdminAuthController @Inject()(val messagesApi: MessagesApi) extends Contro
     }
   }
 
-  def login = Action(parse.urlFormEncoded) { implicit request =>
+  def login = Action.async(parse.urlFormEncoded) { implicit request =>
     loginForm.bindFromRequest.fold(
       formWithErrors => {
-        BadRequest(views.html.admin.login(formWithErrors))
+        Future.successful(BadRequest(views.html.admin.login(formWithErrors)))
       },
       adminCredential => {
-        // TODO: verify credential
-        Redirect(routes.AdminController.index).withSession(adminHeader -> adminCredential.email)
+        adminDAO getAdmin adminCredential.email map {
+          case None =>
+            Redirect(routes.AdminAuthController.loginView) // admin not found
+          case Some(admin) =>
+            if (admin.validate(adminCredential.password)) {
+              Redirect(routes.AdminController.index).withSession(adminHeader -> adminCredential.email)
+            } else {
+              Redirect(routes.AdminAuthController.loginView) // incorrect password
+            }
+        }
+
       }
     )
   }

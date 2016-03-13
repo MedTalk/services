@@ -6,13 +6,15 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.8"
 
-resolvers += "Atlassian Releases" at "https://maven.atlassian.com/public/"
-
 libraryDependencies ++= Seq(
-  jdbc,
   cache,
   ws,
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test,
+
+  "org.postgresql" % "postgresql" % "9.4.1208.jre7",
+  "com.typesafe.play" %% "play-slick" % "2.0.0",
+  "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0",
+  "com.github.t3hnar" %% "scala-bcrypt" % "2.5",
 
   "org.webjars" % "jquery" % "2.2.1",
   "org.webjars" % "foundation" % "6.2.0"
