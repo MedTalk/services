@@ -16,8 +16,11 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0",
   "com.github.t3hnar" %% "scala-bcrypt" % "2.5",
 
-  "org.webjars" % "jquery" % "2.2.1",
-  "org.webjars" % "foundation" % "6.2.0"
+  "com.adrianhurt" %% "play-bootstrap" % "1.0-P25-B3-SNAPSHOT"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+
+pipelineStages := Seq(digest, gzip)
