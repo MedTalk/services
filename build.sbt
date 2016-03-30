@@ -25,3 +25,11 @@ resolvers ++= Seq(
 )
 
 pipelineStages := Seq(digest, gzip)
+
+maintainer in Docker := "Kha Nguyen <nlhkha@gmail.com>"
+
+dockerExposedPorts := Seq(9000)
+
+dockerUpdateLatest := true
+
+dockerRepository := Some("medtalk")
