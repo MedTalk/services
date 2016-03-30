@@ -18,37 +18,41 @@ class AdminAuthController @Inject()(val messagesApi: MessagesApi,
     with AdminSecurity
     with I18nSupport {
 
-  val loginForm = AdminCredential.loginForm
+  val form = AdminCredential.form
 
-  def loginView = Action { request =>
+  def loginForm = Action { request =>
     request.session.get(adminHeader) match {
-      case None => Ok(views.html.admin.login(loginForm))
+      case None => Ok(views.html.admin.login(form))
       case Some(_) => Redirect(routes.AdminController.index)
     }
   }
 
   def login = Action.async(parse.urlFormEncoded) { implicit request =>
-    loginForm.bindFromRequest.fold(
+    form.bindFromRequest.fold(
       formWithErrors => {
         Future.successful(BadRequest(views.html.admin.login(formWithErrors)))
       },
       adminCredential => {
         adminDAO getAdmin adminCredential.email map {
           case None =>
-            Redirect(routes.AdminAuthController.loginView) // admin not found
+            Redirect(routes.AdminAuthController.loginForm) // TODO: flash admin not found
           case Some(admin) =>
             if (admin.validate(adminCredential.password)) {
               Redirect(routes.AdminController.index).withSession(adminHeader -> adminCredential.email)
             } else {
-              Redirect(routes.AdminAuthController.loginView) // incorrect password
+              Redirect(routes.AdminAuthController.loginForm) // TODO: flash incorrect password
             }
         }
-
       }
     )
   }
 
   def logout = Action {
-    Redirect(routes.AdminAuthController.loginView).withNewSession
+    // TODO: flash logout success
+    Redirect(routes.AdminAuthController.loginForm).withNewSession
   }
+
+  def changePasswordForm = TODO
+
+  def changePassword(password: String) = TODO
 }

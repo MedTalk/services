@@ -11,5 +11,10 @@ import scala.concurrent.Future
   */
 @ImplementedBy(classOf[AdminDAOImpl])
 trait AdminDAO {
+
   def getAdmin(email: String): Future[Option[Admin]]
+
+  def isAdminExists(): Future[Boolean]
+
+  def createAdmin(admin: Admin): Future[Long]
 }

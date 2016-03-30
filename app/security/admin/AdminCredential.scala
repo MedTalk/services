@@ -9,7 +9,7 @@ import play.api.data.Forms._
 case class AdminCredential(email: String, password: String)
 
 object AdminCredential {
-  val loginForm = Form(
+  val form = Form(
     mapping(
       "email" -> email,
       "password" -> nonEmptyText

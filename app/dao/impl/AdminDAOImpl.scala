@@ -22,4 +22,8 @@ class AdminDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvi
 
   override def getAdmin(email: String): Future[Option[Admin]] =
     db.run(adminTableQuery.filter(_.email === email).result.headOption)
+
+  override def isAdminExists(): Future[Boolean] = db.run(adminTableQuery.exists result)
+
+  override def createAdmin(admin: Admin): Future[Long] = db.run(adminTableQuery returning adminTableQuery.map(_.id) += admin)
 }
