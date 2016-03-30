@@ -19,8 +19,9 @@ libraryDependencies ++= Seq(
   "com.adrianhurt" %% "play-bootstrap" % "1.0-P25-B3-SNAPSHOT"
 )
 
-resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
-
-resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+resolvers ++= Seq(
+  "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases",
+  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+)
 
 pipelineStages := Seq(digest, gzip)
