@@ -7,7 +7,7 @@ import slick.lifted.ProvenShape
 /**
   * Created by khanguyen on 3/13/16.
   */
-class AdminTable(tag: Tag) extends Table[Admin](tag, "admins") {
+class AdminsTable(tag: Tag) extends Table[Admin](tag, "admins") {
 
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
@@ -22,7 +22,7 @@ class AdminTable(tag: Tag) extends Table[Admin](tag, "admins") {
   def uniqEmailIdx = index("admins_uniq_email", email, true)
 }
 
-object AdminTable {
-  val adminTableQuery = TableQuery[AdminTable]
+object AdminsTable {
+  val adminTableQuery = TableQuery[AdminsTable]
 }
 

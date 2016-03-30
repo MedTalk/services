@@ -1,0 +1,3 @@
+GET         /auth                   controllers.xmpp.ExternalAuthController.auth(email: String, password: String)
+GET         /is_user                controllers.xmpp.ExternalAuthController.isUser(email: String)
+POST        /set_password           controllers.xmpp.ExternalAuthController.setPassword(password: String)

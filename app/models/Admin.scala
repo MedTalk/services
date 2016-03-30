@@ -7,8 +7,8 @@ import com.github.t3hnar.bcrypt._
   */
 case class Admin(name: String, email: String, private val passwordHash: String, id: Option[Long] = None) {
 
-  def validate(password: String): Boolean = password.isBcrypted(passwordHash)
+  def validatePassword(password: String): Boolean = password.isBcrypted(passwordHash)
 
-  def changePassword(password: String): Admin = Admin(name, email, password.bcrypt, id)
+  def changePassword(password: String): Admin = this.copy(passwordHash = password.bcrypt)
 
 }
