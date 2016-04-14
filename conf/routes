@@ -10,4 +10,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 ->      /admin                      admin.Routes
 
+->      /app/v1                     app.Routes
+
 ->      /xmpp                       xmpp.Routes
