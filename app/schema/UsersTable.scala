@@ -21,11 +21,11 @@ class UsersTable(tag: Tag) extends Table[User](tag, "users") {
 
   def phoneNumber = column[Option[String]]("phone_number", O.Length(255))
 
-  override def * : ProvenShape[User] = (name, email, passwordHash, roleID, phoneNumber, id.?) <>(User.tupled, User.unapply)
+  override def * : ProvenShape[User] = (name, email, passwordHash, roleID, phoneNumber, id.?) <>((User.apply _).tupled, User.unapply)
 
   def uniqEmailIdx = index("users_uniq_email", email, true)
 }
 
 object UsersTable {
-  val usersTable = TableQuery[UsersTable]
+  val usersTableQuery = TableQuery[UsersTable]
 }

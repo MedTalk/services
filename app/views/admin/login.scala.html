@@ -6,7 +6,7 @@
 
     <div class="container">
         <h4>Login with your Admin credential</h4>
-        @b3.form(action = controllers.admin.routes.AdminAuthController.login) {
+        @b3.form(action = controllers.admin.routes.AuthController.login) {
             @b3.email( form("email"), '_label -> "Email", 'placeholder -> "example@mail.com" )
             @b3.password( form("password"), '_label -> "Password", 'placeholder -> "Password" )
             @b3.submit('class -> "btn btn-default"){ Login }

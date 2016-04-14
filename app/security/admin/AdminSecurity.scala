@@ -17,7 +17,7 @@ trait AdminSecurity {
     requestHeader.session.get(adminHeader)
 
   private def onUnauthorized(requestHeader: RequestHeader): Result =
-    Results.Redirect(controllers.admin.routes.AdminAuthController.loginForm)
+    Results.Redirect(controllers.admin.routes.AuthController.loginForm)
 
 }
 

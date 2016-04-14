@@ -12,8 +12,8 @@ import scala.concurrent.{Future, ExecutionContext}
 /**
   * Created by khanguyen on 3/13/16.
   */
-class AdminAuthController @Inject()(val messagesApi: MessagesApi,
-                                    adminDAO: AdminDAO)(implicit ec: ExecutionContext)
+class AuthController @Inject()(val messagesApi: MessagesApi,
+                               adminDAO: AdminDAO)(implicit ec: ExecutionContext)
   extends Controller
     with AdminSecurity
     with I18nSupport {
@@ -35,12 +35,12 @@ class AdminAuthController @Inject()(val messagesApi: MessagesApi,
       adminCredential => {
         adminDAO getAdmin adminCredential.email map {
           case None =>
-            Redirect(routes.AdminAuthController.loginForm) // TODO: flash admin not found
+            Redirect(routes.AuthController.loginForm) // TODO: flash admin not found
           case Some(admin) =>
             if (admin.validatePassword(adminCredential.password)) {
               authorize(adminCredential.email, routes.AdminController.index)
             } else {
-              Redirect(routes.AdminAuthController.loginForm) // TODO: flash incorrect password
+              Redirect(routes.AuthController.loginForm) // TODO: flash incorrect password
             }
         }
       }
@@ -49,7 +49,7 @@ class AdminAuthController @Inject()(val messagesApi: MessagesApi,
 
   def logout = Action {
     // TODO: flash logout success
-    Redirect(routes.AdminAuthController.loginForm).withNewSession
+    Redirect(routes.AuthController.loginForm).withNewSession
   }
 
   def changePasswordForm = TODO

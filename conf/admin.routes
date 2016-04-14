@@ -1,6 +1,6 @@
-GET     /                   controllers.admin.AdminController.index
-GET     /login              controllers.admin.AdminAuthController.loginForm
-POST    /login              controllers.admin.AdminAuthController.login
-POST    /logout             controllers.admin.AdminAuthController.logout
-GET     /change_password    controllers.admin.AdminAuthController.changePasswordForm
-POST    /change_password    controllers.admin.AdminAuthController.changePassword(password: String)
+GET         /                       controllers.admin.AdminController.index
+GET         /login                  controllers.admin.AuthController.loginForm
+POST        /login                  controllers.admin.AuthController.login
+POST        /logout                 controllers.admin.AuthController.logout
+GET         /change_password        controllers.admin.AuthController.changePasswordForm
+POST        /change_password        controllers.admin.AuthController.changePassword(password: String)
