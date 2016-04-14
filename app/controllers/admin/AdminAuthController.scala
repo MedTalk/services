@@ -38,7 +38,7 @@ class AdminAuthController @Inject()(val messagesApi: MessagesApi,
             Redirect(routes.AdminAuthController.loginForm) // TODO: flash admin not found
           case Some(admin) =>
             if (admin.validatePassword(adminCredential.password)) {
-              Redirect(routes.AdminController.index).withSession(adminHeader -> adminCredential.email)
+              authorize(adminCredential.email, routes.AdminController.index)
             } else {
               Redirect(routes.AdminAuthController.loginForm) // TODO: flash incorrect password
             }
