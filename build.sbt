@@ -30,3 +30,8 @@ dockerExposedPorts := Seq(9000)
 dockerUpdateLatest := true
 
 dockerRepository := Some("medtalk")
+
+javaOptions in Universal ++= Seq(
+  "-Dconfig.resource=prod.application.conf"
+)
+
