@@ -1,4 +1,5 @@
-GET         /                       controllers.admin.AdminController.index
+GET         /                       controllers.admin.DashboardController.index
+
 GET         /login                  controllers.admin.AuthController.loginForm
 POST        /login                  controllers.admin.AuthController.login
 POST        /logout                 controllers.admin.AuthController.logout

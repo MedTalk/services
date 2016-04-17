@@ -2,8 +2,6 @@ package dao
 
 import com.google.inject.ImplementedBy
 import dao.impl.AdminDAOImpl
-import models.Admin
-
 import scala.concurrent.Future
 
 /**
@@ -11,6 +9,8 @@ import scala.concurrent.Future
   */
 @ImplementedBy(classOf[AdminDAOImpl])
 trait AdminDAO {
+
+  import models.Admin
 
   def getAdmin(email: String): Future[Option[Admin]]
 

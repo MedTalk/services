@@ -17,7 +17,7 @@ class UsersTable(tag: Tag) extends Table[User](tag, "users") {
 
   def passwordHash = column[String]("password_hash", O.Length(255))
 
-  def roleID = column[Int]("role_id")
+  def roleID = column[Int]("role")
 
   def phoneNumber = column[Option[String]]("phone_number", O.Length(255))
 

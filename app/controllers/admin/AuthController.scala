@@ -23,7 +23,7 @@ class AuthController @Inject()(val messagesApi: MessagesApi,
   def loginForm = Action { request =>
     request.session.get(adminHeader) match {
       case None => Ok(views.html.admin.login(form))
-      case Some(_) => Redirect(routes.AdminController.index)
+      case Some(_) => Redirect(routes.DashboardController.index)
     }
   }
 
@@ -35,12 +35,12 @@ class AuthController @Inject()(val messagesApi: MessagesApi,
       adminCredential => {
         adminDAO getAdmin adminCredential.email map {
           case None =>
-            Redirect(routes.AuthController.loginForm) // TODO: flash admin not found
+            Redirect(routes.AuthController.loginForm).flashing("notice" -> "Credential not found")
           case Some(admin) =>
             if (admin.validatePassword(adminCredential.password)) {
-              authorize(adminCredential.email, routes.AdminController.index)
+              authorize(adminCredential.email, routes.DashboardController.index)
             } else {
-              Redirect(routes.AuthController.loginForm) // TODO: flash incorrect password
+              Redirect(routes.AuthController.loginForm).flashing("notice" -> "Invalid credential")
             }
         }
       }
@@ -48,8 +48,7 @@ class AuthController @Inject()(val messagesApi: MessagesApi,
   }
 
   def logout = Action {
-    // TODO: flash logout success
-    Redirect(routes.AuthController.loginForm).withNewSession
+    Redirect(routes.AuthController.loginForm).withNewSession.flashing("notice" -> "You have been logged out.")
   }
 
   def changePasswordForm = TODO

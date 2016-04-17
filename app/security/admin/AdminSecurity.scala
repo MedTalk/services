@@ -7,7 +7,7 @@ trait AdminSecurity {
   import play.api.mvc.Security.AuthenticatedBuilder
   import play.api.mvc._
 
-  object SecuredAction extends AuthenticatedBuilder(userInfo, onUnauthorized)
+  object AdminSecuredAction extends AuthenticatedBuilder(userInfo, onUnauthorized)
 
   def authorize(email: String, redirect: Call) = Results.Redirect(redirect).withSession(adminHeader -> email)
 
