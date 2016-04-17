@@ -2,7 +2,7 @@ name := """medtalkserver"""
 
 version := "0.1.0"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala, AshScriptPlugin)
 
 scalaVersion := "2.11.8"
 
@@ -22,6 +22,8 @@ libraryDependencies ++= Seq(
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
 pipelineStages := Seq(digest, gzip)
+
+dockerBaseImage := "java:8-jre-alpine"
 
 maintainer in Docker := "Kha Nguyen <nlhkha@gmail.com>"
 
